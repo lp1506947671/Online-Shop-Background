@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import sys
 import os
 from pathlib import Path
 
@@ -26,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# 追加导包路径
+sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -35,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'OnlineShop.apps.users'
 ]
 
 MIDDLEWARE = [
