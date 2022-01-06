@@ -16,7 +16,6 @@ import datetime
 from urllib import request as urllib2
 import json
 from .xmltojson import xmltojson
-from xml.dom import minidom
 
 class REST:
 
@@ -92,7 +91,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/SubAccounts?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
         req.add_header("Authorization", auth)
@@ -142,7 +142,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/GetSubAccounts?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
         req.add_header("Authorization", auth)
@@ -192,7 +193,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/QuerySubAccountByName?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
 
@@ -369,7 +371,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/Calls/VoiceVerify?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
 
@@ -422,10 +425,11 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/ivr/dial?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         req.add_header("Accept", "application/xml")
-        req.add_header("Content-Type", "application/xmlcharset=utf-8")
+        req.add_header("Content-Type", "application/xml;charset=utf-8")
         req.add_header("Authorization", auth)
 
         #创建包体
@@ -467,7 +471,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/BillRecords?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
         req.add_header("Authorization", auth)
@@ -517,7 +522,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/AccountInfo?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
         body=''
@@ -558,7 +564,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/SMS/QuerySMSTemplate?sig=" + sig
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
 
@@ -609,7 +616,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/CallResult?sig=" + sig + "&callsid=" + callSid
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
         body=''
@@ -650,7 +658,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/ivr/call?sig=" + sig + "&callid=" + callid
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         self.setHttpHeader(req)
         req.add_header("Authorization", auth)
@@ -701,7 +710,8 @@ class REST:
         url = "https://"+self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/Calls/MediaFileUpload?sig=" + sig + "&appid=" + self.AppId + "&filename=" + filename
         #生成auth
         src = self.AccountSid + ":" + self.Batch
-        auth = base64.encodestring(src).strip()
+        # auth = base64.encodestring(src).strip()
+        auth = base64.encodebytes(src.encode()).decode().strip()
         req = urllib2.Request(url)
         req.add_header("Authorization", auth)
         if self.BodyType == 'json':
@@ -796,9 +806,9 @@ class REST:
     def setHttpHeader(self,req):
         if self.BodyType == 'json':
             req.add_header("Accept", "application/json")
-            req.add_header("Content-Type", "application/jsoncharset=utf-8")
+            req.add_header("Content-Type", "application/json;charset=utf-8")
 
         else:
             req.add_header("Accept", "application/xml")
-            req.add_header("Content-Type", "application/xmlcharset=utf-8")
+            req.add_header("Content-Type", "application/xml;charset=utf-8")
 
