@@ -209,7 +209,7 @@ let vm = new Vue({
             this.check_password2();
             this.check_mobile();
             // this.check_sms_code();
-            // this.check_allow();
+            this.check_allow();
 
             // 在校验之后，注册数据中，只要有错误，就禁用掉表单的提交事件
             if (this.error_name == true || this.error_password == true || this.error_password2 == true || this.error_mobile == true || this.error_sms_code == true || this.error_allow == true) {
