@@ -85,7 +85,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/SubAccounts?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
+              self.SoftVersion + "/Accounts/" + self.AccountSid + "/SubAccounts?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -101,7 +102,8 @@ class REST:
 
         if self.BodyType == 'json':
             # json格式
-            body = '''{"friendlyName": "%s", "appId": "%s"}''' % (friendlyName, self.AppId)
+            body = '''{"friendlyName": "%s", "appId": "%s"}''' % (
+                friendlyName, self.AppId)
         data = ''
         req.data = body.encode()
         try:
@@ -136,7 +138,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/GetSubAccounts?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
+              self.SoftVersion + "/Accounts/" + self.AccountSid + "/GetSubAccounts?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -152,7 +155,8 @@ class REST:
 
         if self.BodyType == 'json':
             # json格式
-            body = '''{"appId": "%s", "startNo": "%s", "offset": "%s"}''' % (self.AppId, startNo, offset)
+            body = '''{"appId": "%s", "startNo": "%s", "offset": "%s"}''' % (
+                self.AppId, startNo, offset)
         data = ''
         req.data = body.encode()
         try:
@@ -187,7 +191,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/QuerySubAccountByName?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + \
+              "/Accounts/" + self.AccountSid + "/QuerySubAccountByName?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -203,7 +208,8 @@ class REST:
             </SubAccount>\
             ''' % (self.AppId, friendlyName)
         if self.BodyType == 'json':
-            body = '''{"friendlyName": "%s", "appId": "%s"}''' % (friendlyName, self.AppId)
+            body = '''{"friendlyName": "%s", "appId": "%s"}''' % (
+                friendlyName, self.AppId)
         data = ''
         req.data = body.encode()
         try:
@@ -239,7 +245,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/SMS/TemplateSMS?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
+              self.SoftVersion + "/Accounts/" + self.AccountSid + "/SMS/TemplateSMS?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -260,7 +267,8 @@ class REST:
             b = '['
             b += ','.join(map("\"{0}\"".format, datas))
             b += ']'
-            body = '''{"to": "%s", "datas": %s, "templateId": "%s", "appId": "%s"}''' % (to, b, tempId, self.AppId)
+            body = '''{"to": "%s", "datas": %s, "templateId": "%s", "appId": "%s"}''' % (
+                to, b, tempId, self.AppId)
         req.data = body.encode()
         data = ''
         try:
@@ -307,7 +315,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/Calls/LandingCalls?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + \
+              "/Accounts/" + self.AccountSid + "/Calls/LandingCalls?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -322,12 +331,13 @@ class REST:
             <playTimes>%s</playTimes><respUrl>%s</respUrl><userData>%s</userData><maxCallTime>%s</maxCallTime><speed>%s</speed>
             <volume>%s</volume><pitch>%s</pitch><bgsound>%s</bgsound></LandingCall>\
             ''' % (
-        to, mediaName, mediaTxt, self.AppId, displayNum, playTimes, respUrl, userData, maxCallTime, speed, volume,
-        pitch, bgsound)
-        if self.BodyType == 'json':
-            body = '''{"to": "%s", "mediaName": "%s","mediaTxt": "%s","appId": "%s","displayNum": "%s","playTimes": "%s","respUrl": "%s","userData": "%s","maxCallTime": "%s","speed": "%s","volume": "%s","pitch": "%s","bgsound": "%s"}''' % (
             to, mediaName, mediaTxt, self.AppId, displayNum, playTimes, respUrl, userData, maxCallTime, speed, volume,
             pitch, bgsound)
+        if self.BodyType == 'json':
+            body = '''{"to": "%s", "mediaName": "%s","mediaTxt": "%s","appId": "%s","displayNum": "%s","playTimes": "%s","respUrl": "%s","userData": "%s","maxCallTime": "%s","speed": "%s","volume": "%s","pitch": "%s","bgsound": "%s"}''' % (
+                to, mediaName, mediaTxt, self.AppId, displayNum, playTimes, respUrl, userData, maxCallTime, speed,
+                volume,
+                pitch, bgsound)
         req.data = body.encode()
         data = ''
         try:
@@ -359,7 +369,8 @@ class REST:
     # @param lang 可选参数    语言类型
     # @param userData 可选参数    第三方私有数据
 
-    def voiceVerify(self, verifyCode, playTimes, to, displayNum, respUrl, lang, userData):
+    def voiceVerify(self, verifyCode, playTimes, to,
+                    displayNum, respUrl, lang, userData):
 
         self.accAuth()
         nowdate = datetime.datetime.now()
@@ -368,7 +379,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/Calls/VoiceVerify?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
+              self.SoftVersion + "/Accounts/" + self.AccountSid + "/Calls/VoiceVerify?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -384,9 +396,9 @@ class REST:
             <displayNum>%s</displayNum><lang>%s</lang><userData>%s</userData></VoiceVerify>\
             ''' % (self.AppId, verifyCode, playTimes, to, respUrl, displayNum, lang, userData)
         if self.BodyType == 'json':
-            # if this model is Json ..then do next code 
+            # if this model is Json ..then do next code
             body = '''{"appId": "%s", "verifyCode": "%s","playTimes": "%s","to": "%s","respUrl": "%s","displayNum": "%s","lang": "%s","userData": "%s"}''' % (
-            self.AppId, verifyCode, playTimes, to, respUrl, displayNum, lang, userData)
+                self.AppId, verifyCode, playTimes, to, respUrl, displayNum, lang, userData)
         req.data = body.encode()
         data = ''
         try:
@@ -423,7 +435,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/ivr/dial?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
+              self.SoftVersion + "/Accounts/" + self.AccountSid + "/ivr/dial?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -468,7 +481,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/BillRecords?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
+              self.SoftVersion + "/Accounts/" + self.AccountSid + "/BillRecords?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -483,8 +497,9 @@ class REST:
             </BillRecords>\
             ''' % (self.AppId, date, keywords)
         if self.BodyType == 'json':
-            # if this model is Json ..then do next code 
-            body = '''{"appId": "%s", "date": "%s","keywords": "%s"}''' % (self.AppId, date, keywords)
+            # if this model is Json ..then do next code
+            body = '''{"appId": "%s", "date": "%s","keywords": "%s"}''' % (
+                self.AppId, date, keywords)
         req.data = body.encode()
         data = ''
         try:
@@ -519,7 +534,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/AccountInfo?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
+              self.SoftVersion + "/Accounts/" + self.AccountSid + "/AccountInfo?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -550,7 +566,7 @@ class REST:
             return {'172001': '网络错误'}
 
     # 短信模板查询
-    # @param templateId  必选参数   模板Id，不带此参数查询全部可用模板 
+    # @param templateId  必选参数   模板Id，不带此参数查询全部可用模板
 
     def QuerySMSTemplate(self, templateId):
 
@@ -561,7 +577,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/SMS/QuerySMSTemplate?sig=" + sig
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + \
+              "/Accounts/" + self.AccountSid + "/SMS/QuerySMSTemplate?sig=" + sig
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -576,8 +593,9 @@ class REST:
             <appId>%s</appId><templateId>%s</templateId></Request>
             ''' % (self.AppId, templateId)
         if self.BodyType == 'json':
-            # if this model is Json ..then do next code 
-            body = '''{"appId": "%s", "templateId": "%s"}''' % (self.AppId, templateId)
+            # if this model is Json ..then do next code
+            body = '''{"appId": "%s", "templateId": "%s"}''' % (
+                self.AppId, templateId)
         req.data = body.encode()
         data = ''
         try:
@@ -612,7 +630,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/CallResult?sig=" + sig + "&callsid=" + callSid
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + \
+              "/Accounts/" + self.AccountSid + "/CallResult?sig=" + sig + "&callsid=" + callSid
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -644,7 +663,7 @@ class REST:
 
     # 呼叫状态查询
     # @param callid   必选参数    一个由32个字符组成的电话唯一标识符
-    # @param action      可选参数     查询结果通知的回调url地址 
+    # @param action      可选参数     查询结果通知的回调url地址
     def QueryCallState(self, callid, action):
 
         self.accAuth()
@@ -654,7 +673,8 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/ivr/call?sig=" + sig + "&callid=" + callid
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + \
+              "/Accounts/" + self.AccountSid + "/ivr/call?sig=" + sig + "&callid=" + callid
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -669,8 +689,9 @@ class REST:
             </Request>\
             ''' % (self.AppId, callid, action)
         if self.BodyType == 'json':
-            # if this model is Json ..then do next code 
-            body = '''{"Appid":"%s","QueryCallState":{"callid":"%s","action":"%s"}}''' % (self.AppId, callid, action)
+            # if this model is Json ..then do next code
+            body = '''{"Appid":"%s","QueryCallState":{"callid":"%s","action":"%s"}}''' % (
+                self.AppId, callid, action)
         req.data = body.encode()
         data = ''
         try:
@@ -706,7 +727,9 @@ class REST:
         signature = self.AccountSid + self.AccountToken + self.Batch
         sig = md5.new(signature).hexdigest().upper()
         # 拼接URL
-        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + self.AccountSid + "/Calls/MediaFileUpload?sig=" + sig + "&appid=" + self.AppId + "&filename=" + filename
+        url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + self.SoftVersion + "/Accounts/" + \
+              self.AccountSid + "/Calls/MediaFileUpload?sig=" + sig + \
+              "&appid=" + self.AppId + "&filename=" + filename
         # 生成auth
         src = self.AccountSid + ":" + self.Batch
         # auth = base64.encodestring(src).strip()
@@ -773,27 +796,27 @@ class REST:
 
     # 主帐号鉴权
     def accAuth(self):
-        if (self.ServerIP == ""):
+        if self.ServerIP == "":
             print('172004')
             print('IP为空')
 
-        if (self.ServerPort <= 0):
+        if int(self.ServerPort) <= 0:
             print('172005')
             print('端口错误（小于等于0）')
 
-        if (self.SoftVersion == ""):
+        if self.SoftVersion == "":
             print('172013')
             print('版本号为空')
 
-        if (self.AccountSid == ""):
+        if self.AccountSid == "":
             print('172006')
             print('主帐号为空')
 
-        if (self.AccountToken == ""):
+        if self.AccountToken == "":
             print('172007')
             print('主帐号令牌为空')
 
-        if (self.AppId == ""):
+        if self.AppId == "":
             print('172012')
             print('应用ID为空')
 
