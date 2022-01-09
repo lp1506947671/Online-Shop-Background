@@ -211,3 +211,4 @@ LOGGING = {
     }
 }
 AUTH_USER_MODEL = 'users.User'
+CONFIG_PATH = os.path.join(BASE_DIR, "OnlineShop", "settings", "config.ini")

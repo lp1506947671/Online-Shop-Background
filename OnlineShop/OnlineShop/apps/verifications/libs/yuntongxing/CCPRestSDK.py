@@ -243,7 +243,7 @@ class REST:
         self.Batch = nowdate.strftime("%Y%m%d%H%M%S")
         # 生成sig
         signature = self.AccountSid + self.AccountToken + self.Batch
-        sig = md5.new(signature).hexdigest().upper()
+        sig = md5(signature.encode()).hexdigest().upper()
         # 拼接URL
         url = "https://" + self.ServerIP + ":" + self.ServerPort + "/" + \
               self.SoftVersion + "/Accounts/" + self.AccountSid + "/SMS/TemplateSMS?sig=" + sig
@@ -786,11 +786,11 @@ class REST:
             print('172008')
             print('子帐号为空')
 
-        if (self.SubAccountToken == ""):
+        if self.SubAccountToken == "":
             print('172009')
             print('子帐号令牌为空')
 
-        if (self.AppId == ""):
+        if self.AppId == "":
             print('172012')
             print('应用ID为空')
 
