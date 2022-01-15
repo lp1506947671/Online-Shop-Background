@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.views import View
 from sqlite3 import DatabaseError
 from django.shortcuts import render
+from django_redis import get_redis_connection
 
 from OnlineShop.utils.response_code import RETCODE
 from users.models import User
@@ -22,6 +23,7 @@ class RegisterView(View):
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
         mobile = request.POST.get('mobile')
+        sms_code_client = request.POST.get('sms_code')
         allow = request.POST.get('allow')
 
         # 判断参数是否齐全
@@ -42,6 +44,13 @@ class RegisterView(View):
         # 判断是否勾选用户协议
         if allow != 'on':
             return http.HttpResponseForbidden('请勾选用户协议')
+            # 判断短信验证码是否输入正确
+        redis_conn = get_redis_connection('verify_code')
+        sms_code_server = redis_conn.get('sms_%s' % mobile)
+        if sms_code_server is None:
+            return render(request, 'register.html', {'sms_code_errmsg': '短信验证码已失效'})
+        if sms_code_client != sms_code_server.decode():
+            return render(request, 'register.html', {'sms_code_errmsg': '输入短信验证码有误'})
         # 保存注册数据
         try:
             user = User.objects.create_user(username=username, password=password, mobile=mobile)
@@ -77,4 +86,4 @@ class MobileCountView(View):
         :return: JSON
         """
         count = User.objects.filter(mobile=mobile).count()
-        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK', 'count': count})
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK', 'count': 0})
