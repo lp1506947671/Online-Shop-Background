@@ -54,12 +54,18 @@ class SMSCodeView(View):
 
         # 创建连接到redis的对象
         redis_conn = get_redis_connection('verify_code')
+
+        send_flag = redis_conn.get('send_flag_%s' % mobile)
+        if send_flag:
+            return http.JsonResponse({'code': RETCODE.THROTTLINGERR, 'errmsg': '发送短信过于频繁'})
+
         # 提取图形验证码
         image_code_server = redis_conn.get('img_%s' % uuid)
         if image_code_server is None:
             # 图形验证码过期或者不存在
             return http.JsonResponse({'code': RETCODE.IMAGECODEERR, 'errmsg': '图形验证码失效'})
         # 删除图形验证码，避免恶意测试图形验证码
+
         try:
             redis_conn.delete('img_%s' % uuid)
         except Exception as e:
@@ -74,6 +80,8 @@ class SMSCodeView(View):
         print(sms_code)
         # 保存短信验证码
         redis_conn.setex('sms_%s' % mobile, CONFIG.sms_code_redis_expires, sms_code)
+        # 保存发送短信验证码的标记
+        redis_conn.setex('send_flag_%s' % mobile, CONFIG.send_sms_code_interval, 1)
         # 发送短信验证码
         # sendTemplateSMS(mobile, [sms_code, int(CONFIG.sms_code_redis_expires) // 60], CONFIG.send_sms_template_id)
 
