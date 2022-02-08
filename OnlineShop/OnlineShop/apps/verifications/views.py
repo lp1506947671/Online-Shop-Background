@@ -54,6 +54,7 @@ class SMSCodeView(View):
 
         # 创建连接到redis的对象
         redis_conn = get_redis_connection('verify_code')
+        pl = redis_conn.pipeline()
 
         send_flag = redis_conn.get('send_flag_%s' % mobile)
         if send_flag:
@@ -79,9 +80,11 @@ class SMSCodeView(View):
         sms_code = '%06d' % random.randint(0, 999999)
         print(sms_code)
         # 保存短信验证码
-        redis_conn.setex('sms_%s' % mobile, CONFIG.sms_code_redis_expires, sms_code)
+        pl.setex('sms_%s' % mobile, CONFIG.sms_code_redis_expires, sms_code)
         # 保存发送短信验证码的标记
-        redis_conn.setex('send_flag_%s' % mobile, CONFIG.send_sms_code_interval, 1)
+        pl.setex('send_flag_%s' % mobile, CONFIG.send_sms_code_interval, 1)
+        # 执行请求
+        pl.execute()
         # 发送短信验证码
         # sendTemplateSMS(mobile, [sms_code, int(CONFIG.sms_code_redis_expires) // 60], CONFIG.send_sms_template_id)
 
