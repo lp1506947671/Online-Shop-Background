@@ -5,10 +5,10 @@ from django import http
 from django.views import View
 from django_redis import get_redis_connection
 
+from OnlineShop.apps.verifications.libs.captcha.captcha import captcha
 from OnlineShop.settings.common import global_config, MyDict
 from OnlineShop.utils.response_code import RETCODE
-from verifications.libs.captcha.captcha import captcha
-from verifications.libs.yuntongxing.SendTemplateSMS import sendTemplateSMS
+from celery_tasks.sms.tasks import sendTemplateSMS
 
 CONFIG = MyDict(global_config.verifications)
 logger = logging.getLogger("django")
@@ -86,7 +86,7 @@ class SMSCodeView(View):
         # 执行请求
         pl.execute()
         # 发送短信验证码
-        # sendTemplateSMS(mobile, [sms_code, int(CONFIG.sms_code_redis_expires) // 60], CONFIG.send_sms_template_id)
+        # sendTemplateSMS.delay(mobile, [sms_code, int(CONFIG.sms_code_redis_expires) // 60], CONFIG.send_sms_template_id)
 
         # 响应结果
         return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '发送短信成功'})

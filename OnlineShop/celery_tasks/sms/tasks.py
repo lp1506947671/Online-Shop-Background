@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from OnlineShop.settings.common import global_config, MyDict
-from verifications.libs.yuntongxing.CCPRestSDK import REST
+# 定义任务
+from OnlineShop.settings.common import MyDict, global_config
+from celery_tasks.main import celery_app
+from celery_tasks.sms.yuntongxing.CCPRestSDK import REST
+# 使用装饰器装饰异步任务，保证celery识别任务
 
 
+@celery_app.task(name='send_sms_code')
 def sendTemplateSMS(to, data, temp_id):
     """
     :param to: 手机号码
@@ -24,3 +28,7 @@ def sendTemplateSMS(to, data, temp_id):
                 print('%s:%s' % (x, y))
         else:
             print('%s:%s' % (k, v))
+    if result.get('statusCode') == '000000':
+        return 0
+    else:
+        return -1
