@@ -2,7 +2,7 @@
 import re
 
 from django import http
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
 from django.views import View
 from sqlite3 import DatabaseError
@@ -143,4 +143,19 @@ class LoginView(View):
         login(request, user)
         response = redirect("contents:index")
         response.set_cookie('username', user.username, max_age=3600 * 24 * 15)
+        return response
+
+
+class LogoutView(View):
+    """退出登录"""
+
+    def get(self, request):
+        """实现退出登录逻辑"""
+        # 清理session
+        logout(request)
+        # 退出登录，重定向到登录页
+        response = redirect(reverse('contents:index'))
+        # 退出登录时清除cookie中的username
+        response.delete_cookie('username')
+
         return response
