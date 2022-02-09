@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+from django.contrib.auth.decorators import login_required
 from django.urls import re_path
 
 from users import views
@@ -17,4 +17,6 @@ urlpatterns = [
     re_path(r'^login/$', views.LoginView.as_view(), name='login'),
     # 用户退出登录
     re_path(r'^logout/$', views.LogoutView.as_view(), name='logout'),
+    # 用户中心
+    re_path(r'^info/$', login_required(views.UserInfoView.as_view()), name='info'),
 ]

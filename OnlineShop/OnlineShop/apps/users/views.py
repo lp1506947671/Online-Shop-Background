@@ -141,7 +141,15 @@ class LoginView(View):
             request.session.set_expiry(None)
 
         login(request, user)
-        response = redirect("contents:index")
+        # 先取出next
+        next = request.GET.get('next')
+        if next:
+            # 重定向到next
+            response = redirect(next)
+        else:
+            # 重定向到首页
+            response = redirect(reverse('contents:index'))
+
         response.set_cookie('username', user.username, max_age=3600 * 24 * 15)
         return response
 
@@ -159,3 +167,11 @@ class LogoutView(View):
         response.delete_cookie('username')
 
         return response
+
+
+class UserInfoView(View):
+    """用户中心"""
+
+    def get(self, request):
+        """提供个人信息界面"""
+        return render(request, 'user_center_info.html')
