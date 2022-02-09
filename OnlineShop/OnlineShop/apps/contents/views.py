@@ -1,5 +1,6 @@
 # Create your views here.
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import View
 
 
@@ -8,4 +9,4 @@ class IndexView(View):
 
     def get(self, request):
         """提供首页广告界面"""
-        return HttpResponse("ok")
+        return render(request, 'index.html')

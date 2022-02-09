@@ -18,19 +18,19 @@
                 <div v-if="username" class="login_btn fl">
                     欢迎您：<em>[[ username ]]</em>
                     <span>|</span>
-                    <a href="{{ url('users:logout') }}" class="quit">退出</a>
+                    <a href="{{ 'users:logout' }}" class="quit">退出</a>
                 </div>
                 <div v-else class="login_btn fl">
-                    <a href="login.html">登录</a>
+                    <a href="{{ url('users:login') }}">登录</a>
                     <span>|</span>
                     <a href="register.html">注册</a>
                 </div>
 
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="{{ url('users:info') }}">用户中心</a>
+					<a href="{{ 'users:info' }}">用户中心</a>
 					<span>|</span>
-					<a href="{{ url('carts:info') }}">我的购物车</a>
+					<a href="{{ 'carts:info' }}">我的购物车</a>
 					<span>|</span>
 					<a href="user_center_order.html">我的订单</a>
 				</div>
@@ -52,7 +52,7 @@
 			</ul>
 		</div>
 		<div class="guest_cart fr">
-			<a href="{{ url('carts:info') }}" class="cart_name fl">我的购物车</a>
+			<a href="{{ 'carts:info' }}" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl" id="show_count">2</div>
 			<ul class="cart_goods_show">
 				<li>
@@ -72,27 +72,27 @@
 		<div class="navbar">
 			<h1 class="fl">商品分类</h1>
 			<ul class="sub_menu">
-                {% for group in categories.values() %}
-                <li>
-                    <div class="level1">
-                        {% for channel in group.channels %}
-                        <a href="{{ channel.url }}">{{ channel.name }}</a>
-                        {% endfor %}
-                    </div>
-                    <div class="level2">
-                        {% for cat2 in group.sub_cats %}
-                        <div class="list_group">
-                            <div class="group_name fl">{{ cat2.name }} &gt;</div>
-                            <div class="group_detail fl">
-                                {% for cat3 in cat2.sub_cats %}
-                                <a href="/list/{{ cat3.id }}/1/">{{ cat3.name }}</a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </li>
-                {% endfor %}
+{#                {% for group in categories.values() %}#}
+{#                <li>#}
+{#                    <div class="level1">#}
+{#                        {% for channel in group.channels %}#}
+{#                        <a href="{{ channel.url }}">{{ channel.name }}</a>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                    <div class="level2">#}
+{#                        {% for cat2 in group.sub_cats %}#}
+{#                        <div class="list_group">#}
+{#                            <div class="group_name fl">{{ cat2.name }} &gt;</div>#}
+{#                            <div class="group_detail fl">#}
+{#                                {% for cat3 in cat2.sub_cats %}#}
+{#                                <a href="/list/{{ cat3.id }}/1/">{{ cat3.name }}</a>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </li>#}
+{#                {% endfor %}#}
             </ul>
 			<ul class="navlist fl">
 				<li><a href="">首页</a></li>
@@ -105,9 +105,9 @@
 	</div>
 	<div class="pos_center_con clearfix">
 		<ul class="slide">
-            {% for content in contents.index_lbt %}
-                <li><a href="{{ content.url }}"><img src="{{ content.image.url }}" alt="幻灯片01"></a></li>
-            {% endfor %}
+{#            {% for content in contents.index_lbt %}#}
+{#                <li><a href="{{ content.url }}"><img src="{{ content.image.url }}" alt="幻灯片01"></a></li>#}
+{#            {% endfor %}#}
 		</ul>
 		<div class="prev"></div>
 		<div class="next"></div>
@@ -118,13 +118,13 @@
 				<a href="#">更多 &gt;</a>
 			</div>
 			<ul class="news_list">
-                {% for content in contents.index_kx %}
-                    <li><a href="{{ content.url }}">{{ content.title }}</a></li>
-                {% endfor %}
+{#                {% for content in contents.index_kx %}#}
+{#                    <li><a href="{{ content.url }}">{{ content.title }}</a></li>#}
+{#                {% endfor %}#}
 			</ul>
-            {% for content in contents.index_ytgg %}
-                <a href="{{ content.url }}" class="advs"><img src="{{ content.image.url }}"></a>
-            {% endfor %}
+{#            {% for content in contents.index_ytgg %}#}
+{#                <a href="{{ content.url }}" class="advs"><img src="{{ content.image.url }}"></a>#}
+{#            {% endfor %}#}
 		</div>
 	</div>
     <div class="floor_adv" v-cloak>
@@ -139,45 +139,45 @@
             </div>
             <div class="goods_con clearfix">
                 <div class="goods_banner fl">
-                    <img src="{{ contents.index_1f_logo.0.image.url}}">
+{#                    <img src="{{ contents.index_1f_logo.0.image.url}}">#}
                     <div class="channel">
-                        {% for content in contents.index_1f_pd %}
-                        <a href="{{ content.url }}">{{ content.title }}</a>
-                        {% endfor %}
+{#                        {% for content in contents.index_1f_pd %}#}
+{#                        <a href="{{ content.url }}">{{ content.title }}</a>#}
+{#                        {% endfor %}#}
                     </div>
                     <div class="key_words">
-                        {% for content in contents.index_1f_bq %}
-                        <a href="{{ content.url }}">{{ content.title }}</a>
-                        {% endfor %}
+{#                        {% for content in contents.index_1f_bq %}#}
+{#                        <a href="{{ content.url }}">{{ content.title }}</a>#}
+{#                        {% endfor %}#}
                     </div>
                 </div>
                 <div class="goods_list_con">
                     <ul v-show="f1_tab===1" class="goods_list fl">
-                        {% for content in contents.index_1f_ssxp %}
-                        <li>
-                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>
-                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>
-                            <div class="price">{{ content.text }}</div>
-                        </li>
-                        {% endfor %}
+{#                        {% for content in contents.index_1f_ssxp %}#}
+{#                        <li>#}
+{#                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>#}
+{#                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>#}
+{#                            <div class="price">{{ content.text }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
                     </ul>
                     <ul v-show="f1_tab===2" class="goods_list fl">
-                        {% for content in contents.index_1f_cxdj %}
-                        <li>
-                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>
-                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>
-                            <div class="price">{{ content.text }}</div>
-                        </li>
-                        {% endfor %}
+{#                        {% for content in contents.index_1f_cxdj %}#}
+{#                        <li>#}
+{#                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>#}
+{#                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>#}
+{#                            <div class="price">{{ content.text }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
                     </ul>
                     <ul v-show="f1_tab===3" class="goods_list fl">
-                        {% for content in contents.index_1f_sjpj %}
-                        <li>
-                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>
-                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>
-                            <div class="price">{{ content.text }}</div>
-                        </li>
-                        {% endfor %}
+{#                        {% for content in contents.index_1f_sjpj %}#}
+{#                        <li>#}
+{#                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>#}
+{#                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>#}
+{#                            <div class="price">{{ content.text }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
                     </ul>
                 </div>
             </div>
@@ -192,36 +192,36 @@
             </div>
             <div class="goods_con clearfix">
                 <div class="goods_banner fl">
-                    <img src="{{ contents.index_2f_logo.0.image.url}}">
+{#                    <img src="{{ contents.index_2f_logo.0.image.url}}">#}
                     <div class="channel">
-                        {% for content in contents.index_2f_pd %}
-                        <a href="{{ content.url }}">{{ content.title }}</a>
-                        {% endfor %}
+{#                        {% for content in contents.index_2f_pd %}#}
+{#                        <a href="{{ content.url }}">{{ content.title }}</a>#}
+{#                        {% endfor %}#}
                     </div>
                     <div class="key_words">
-                        {% for content in contents.index_2f_bq %}
-                        <a href="{{ content.url }}">{{ content.title }}</a>
-                        {% endfor %}
+{#                        {% for content in contents.index_2f_bq %}#}
+{#                        <a href="{{ content.url }}">{{ content.title }}</a>#}
+{#                        {% endfor %}#}
                     </div>
                 </div>
                 <div class="goods_list_con">
                     <ul v-show="f2_tab===1" class="goods_list fl">
-                        {% for content in contents.index_2f_cxdj %}
-                        <li>
-                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>
-                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>
-                            <div class="price">{{ content.text }}</div>
-                        </li>
-                        {% endfor %}
+{#                        {% for content in contents.index_2f_cxdj %}#}
+{#                        <li>#}
+{#                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>#}
+{#                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>#}
+{#                            <div class="price">{{ content.text }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
                     </ul>
                     <ul v-show="f2_tab===2" class="goods_list fl">
-                        {% for content in contents.index_2f_jjhg %}
-                        <li>
-                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>
-                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>
-                            <div class="price">{{ content.text }}</div>
-                        </li>
-                        {% endfor %}
+{#                        {% for content in contents.index_2f_jjhg %}#}
+{#                        <li>#}
+{#                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>#}
+{#                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>#}
+{#                            <div class="price">{{ content.text }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
                     </ul>
                 </div>
             </div>
@@ -236,36 +236,36 @@
             </div>
             <div class="goods_con clearfix">
                 <div class="goods_banner fl">
-                    <img src="{{ contents.index_3f_logo.0.image.url }}">
+{#                    <img src="{{ contents.index_3f_logo.0.image.url }}">#}
                     <div class="channel">
-                        {% for content in contents.index_3f_pd %}
-                        <a href="{{ content.url }}">{{ content.title }}</a>
-                        {% endfor %}
+{#                        {% for content in contents.index_3f_pd %}#}
+{#                        <a href="{{ content.url }}">{{ content.title }}</a>#}
+{#                        {% endfor %}#}
                     </div>
                     <div class="key_words">
-                        {% for content in contents.index_3f_bq %}
-                        <a href="{{ content.url }}">{{ content.title }}</a>
-                        {% endfor %}
+{#                        {% for content in contents.index_3f_bq %}#}
+{#                        <a href="{{ content.url }}">{{ content.title }}</a>#}
+{#                        {% endfor %}#}
                     </div>
                 </div>
                 <div class="goods_list_con">
                     <ul v-show="f3_tab===1" class="goods_list fl">
-                        {% for content in contents.index_3f_shyp %}
-                        <li>
-                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>
-                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>
-                            <div class="price">{{ content.text }}</div>
-                        </li>
-                        {% endfor %}
+{#                        {% for content in contents.index_3f_shyp %}#}
+{#                        <li>#}
+{#                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>#}
+{#                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>#}
+{#                            <div class="price">{{ content.text }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
                     </ul>
                     <ul v-show="f3_tab===2" class="goods_list fl">
-                        {% for content in contents.index_3f_cfyp %}
-                        <li>
-                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>
-                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>
-                            <div class="price">{{ content.text }}</div>
-                        </li>
-                        {% endfor %}
+{#                        {% for content in contents.index_3f_cfyp %}#}
+{#                        <li>#}
+{#                            <a href="{{ content.url }}" class="goods_pic"><img src="{{ content.image.url }}"></a>#}
+{#                            <h4><a href="{{ content.url }}" title="{{ content.title }}">{{ content.title }}</a></h4>#}
+{#                            <div class="price">{{ content.text }}</div>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
                     </ul>
                 </div>
             </div>

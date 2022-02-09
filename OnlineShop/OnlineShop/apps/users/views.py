@@ -59,9 +59,9 @@ class RegisterView(View):
             return render(request, 'register.html', {'register_errmsg': '注册失败'})
         # 登入用户，实现状态保持
         login(request, user)
-
-        # 响应注册结果
-        return http.HttpResponse('注册成功，重定向到首页')
+        response = redirect("contents:index")
+        response.set_cookie('username', user.username, max_age=3600 * 24 * 15)
+        return response
 
 
 class UsernameCountView(View):
@@ -140,5 +140,7 @@ class LoginView(View):
             # 记住用户：None表示两周后过期
             request.session.set_expiry(None)
 
-        # 响应登录结果
-        return redirect(reverse('contents:index'))
+        login(request, user)
+        response = redirect("contents:index")
+        response.set_cookie('username', user.username, max_age=3600 * 24 * 15)
+        return response
