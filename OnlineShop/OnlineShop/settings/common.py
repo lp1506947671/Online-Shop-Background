@@ -37,3 +37,4 @@ class InitConfigFile:
 
 
 global_config = InitConfigFile()
+config_qq = MyDict(global_config.QQ)
