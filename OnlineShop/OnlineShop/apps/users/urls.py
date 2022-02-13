@@ -19,4 +19,6 @@ urlpatterns = [
     re_path(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     # 用户中心
     re_path(r'^info/$', login_required(views.UserInfoView.as_view()), name='info'),
+    # 添加邮箱
+    re_path(r'^emails/$', views.EmailView.as_view()),
 ]

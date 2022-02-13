@@ -1,4 +1,6 @@
 # Create your views here.
+import json
+import logging
 import re
 
 from django import http
@@ -9,8 +11,11 @@ from sqlite3 import DatabaseError
 from django.shortcuts import render, redirect
 from django_redis import get_redis_connection
 
+from OnlineShop.utils.common import LoginRequiredJSONMixin
 from OnlineShop.utils.response_code import RETCODE
 from users.models import User
+
+logger = logging.getLogger("django")
 
 
 class RegisterView(View):
@@ -181,3 +186,26 @@ class UserInfoView(View):
             'email_active': request.user.email_active
         }
         return render(request, 'user_center_info.html', context)
+
+
+class EmailView(LoginRequiredJSONMixin,View):
+
+    def put(self, request):
+
+        # 获取参数
+        json_dict = json.loads(request.body.decode())
+        email = json_dict.get('email')
+        # 校验参数
+        if not email:
+            return http.HttpResponseForbidden('缺少email参数')
+        if not re.match(r'^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$', email):
+            return http.HttpResponseForbidden('参数email有误')
+        # 赋值email字段
+        try:
+            request.user.email = email
+            request.user.save()
+        except Exception as e:
+            logger.error(e)
+            return http.JsonResponse({'code': RETCODE.DBERR, 'errmsg': '添加邮箱失败'})
+        # 响应添加邮箱结果
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '添加邮箱成功'})

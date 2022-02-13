@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from django import http
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from itsdangerous import TimedJSONWebSignatureSerializer, BadData
 
 from OnlineShop.settings import constants
+from OnlineShop.utils.response_code import RETCODE
 
 
 def gen_access_token(openid):
@@ -24,3 +27,8 @@ def check_access_token(access_token_openid):
     else:
         # 放回openid明文
         return data.get("openid")
+
+
+class LoginRequiredJSONMixin(LoginRequiredMixin):
+    def handle_no_permission(self):
+        return http.JsonResponse({'code': RETCODE.SESSIONERR, 'errmsg': '用户未登录'})
