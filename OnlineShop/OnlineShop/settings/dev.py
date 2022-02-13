@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import sys
 import os
 from pathlib import Path
+from OnlineShop.settings.common import config_email
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -212,6 +213,15 @@ LOGGING = {
     }
 }
 AUTH_USER_MODEL = 'users.User'
-CONFIG_PATH = os.path.join(BASE_DIR, "OnlineShop", "settings", "dev.ini")
 AUTHENTICATION_BACKENDS = ['users.utils.UsernameMobileAuthBackend']
 LOGIN_URL = '/login/'
+
+# 指定邮件后端
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'  # 发邮件主机
+EMAIL_PORT = 25  # 发邮件端口
+# 授权的邮箱
+EMAIL_HOST_USER = config_email.email_host_user
+# 邮箱授权时获得的密码，非注册登录密码
+EMAIL_HOST_PASSWORD = config_email.email_host_password
+EMAIL_FROM = 'OnlineShop'  # 发件人抬头

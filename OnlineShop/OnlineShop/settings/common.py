@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
 import configparser
-from OnlineShop.settings.dev import CONFIG_PATH
+
+BASE_DIR = os.path.dirname(__file__)
+CONFIG_PATH = os.path.join(BASE_DIR, "dev.ini")
 
 
 class MyDict(dict):
@@ -38,3 +41,4 @@ class InitConfigFile:
 
 global_config = InitConfigFile()
 config_qq = MyDict(global_config.QQ)
+config_email = MyDict(global_config.email)
