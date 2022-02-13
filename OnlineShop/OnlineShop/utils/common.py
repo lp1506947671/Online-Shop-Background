@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from itsdangerous import TimedJSONWebSignatureSerializer, BadData
 
 from OnlineShop.settings import constants
+from OnlineShop.settings.common import config_email
 from OnlineShop.utils.response_code import RETCODE
 
 
@@ -27,6 +28,19 @@ def check_access_token(access_token_openid):
     else:
         # 放回openid明文
         return data.get("openid")
+
+
+def generate_verify_email_url(user):
+    """
+    生成邮箱验证链接
+    :param user: 当前登录用户
+    :return: verify_url
+    """
+    serializer = TimedJSONWebSignatureSerializer(settings.SECRET_KEY, expires_in=constants.ACCESS_TOKEN_EXPIRES)
+    data = {'user_id': user.id, 'email': user.email}
+    token = serializer.dumps(data).decode()
+    verify_url = config_email.email_verify_url + '?token=' + token
+    return verify_url
 
 
 class LoginRequiredJSONMixin(LoginRequiredMixin):

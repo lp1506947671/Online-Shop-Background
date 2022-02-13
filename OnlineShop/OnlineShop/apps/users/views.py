@@ -11,8 +11,9 @@ from sqlite3 import DatabaseError
 from django.shortcuts import render, redirect
 from django_redis import get_redis_connection
 
-from OnlineShop.utils.common import LoginRequiredJSONMixin
+from OnlineShop.utils.common import LoginRequiredJSONMixin, generate_verify_email_url
 from OnlineShop.utils.response_code import RETCODE
+from celery_tasks.email.tasks import send_verify_email
 from users.models import User
 
 logger = logging.getLogger("django")
@@ -207,5 +208,8 @@ class EmailView(LoginRequiredJSONMixin,View):
         except Exception as e:
             logger.error(e)
             return http.JsonResponse({'code': RETCODE.DBERR, 'errmsg': '添加邮箱失败'})
+        # 异步发送验证邮件
+        verify_url = generate_verify_email_url(request.user)
+        send_verify_email.delay(email, verify_url)
         # 响应添加邮箱结果
         return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '添加邮箱成功'})

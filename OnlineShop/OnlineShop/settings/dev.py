@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-sc#hj4*%nkf&m2%7qrxro@org8f2ojoszc&-34s%9ql7k@pn)w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.meiduo.site']
 
 # Application definition
 
@@ -224,4 +224,4 @@ EMAIL_PORT = 25  # 发邮件端口
 EMAIL_HOST_USER = config_email.email_host_user
 # 邮箱授权时获得的密码，非注册登录密码
 EMAIL_HOST_PASSWORD = config_email.email_host_password
-EMAIL_FROM = 'OnlineShop'  # 发件人抬头
+EMAIL_FROM = f'OnlineShop<{config_email.email_host_user}>'  # 发件人抬头
