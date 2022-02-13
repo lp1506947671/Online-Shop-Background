@@ -8,6 +8,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer, BadData
 from OnlineShop.settings import constants
 from OnlineShop.settings.common import config_email
 from OnlineShop.utils.response_code import RETCODE
+from users.models import User
 
 
 def gen_access_token(openid):
@@ -41,6 +42,28 @@ def generate_verify_email_url(user):
     token = serializer.dumps(data).decode()
     verify_url = config_email.email_verify_url + '?token=' + token
     return verify_url
+
+
+def check_verify_email_token(token):
+    """
+    验证token并提取user
+    :param token: 用户信息签名后的结果
+    :return: user, None
+    """
+    serializer = TimedJSONWebSignatureSerializer(settings.SECRET_KEY, expires_in=constants.ACCESS_TOKEN_EXPIRES)
+    try:
+        data = serializer.loads(token)
+    except BadData:
+        return None
+    else:
+        user_id = data.get('user_id')
+        email = data.get('email')
+        try:
+            user = User.objects.get(id=user_id, email=email)
+        except User.DoesNotExist:
+            return None
+        else:
+            return user
 
 
 class LoginRequiredJSONMixin(LoginRequiredMixin):
