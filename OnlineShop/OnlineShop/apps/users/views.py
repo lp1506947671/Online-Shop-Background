@@ -5,6 +5,7 @@ import re
 
 from django import http
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views import View
 from sqlite3 import DatabaseError
@@ -241,3 +242,11 @@ class VerifyEmailView(View):
 
         # 返回邮箱验证结果
         return redirect(reverse('users:info'))
+
+
+class AddressView(LoginRequiredMixin, View):
+    """用户收货地址"""
+
+    def get(self, request):
+        """提供收货地址界面"""
+        return render(request, 'user_center_site.html')
