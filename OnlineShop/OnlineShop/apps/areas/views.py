@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views import View
 
 from OnlineShop.utils.response_code import RETCODE
-from users.models import Area
+from areas.models import Area
 
 logger = logging.getLogger("django")
 
