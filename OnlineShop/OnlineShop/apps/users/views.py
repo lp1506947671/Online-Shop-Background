@@ -269,7 +269,7 @@ class AddressView(LoginRequiredMixin, View):
                 "tel": address.tel,
                 "email": address.email
             }
-
+            address_dict_list.append(address_dict)
         context = {
             'default_address_id': login_user.default_address_id,
             'addresses': address_dict_list,
