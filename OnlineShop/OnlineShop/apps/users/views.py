@@ -12,10 +12,11 @@ from sqlite3 import DatabaseError
 from django.shortcuts import render, redirect
 from django_redis import get_redis_connection
 
+from OnlineShop.settings import constants
 from OnlineShop.utils.common import LoginRequiredJSONMixin, generate_verify_email_url, check_verify_email_token
 from OnlineShop.utils.response_code import RETCODE
 from celery_tasks.email.tasks import send_verify_email
-from users.models import User
+from users.models import User, Address
 
 logger = logging.getLogger("django")
 
@@ -249,4 +250,29 @@ class AddressView(LoginRequiredMixin, View):
 
     def get(self, request):
         """提供收货地址界面"""
-        return render(request, 'user_center_site.html')
+        """提供收货地址界面"""
+        # 获取用户地址列表
+        login_user = request.user
+        addresses = Address.objects.filter(user=login_user, is_deleted=False)
+
+        address_dict_list = []
+        for address in addresses:
+            address_dict = {
+                "id": address.id,
+                "title": address.title,
+                "receiver": address.receiver,
+                "province": address.province.name,
+                "city": address.city.name,
+                "district": address.district.name,
+                "place": address.place,
+                "mobile": address.mobile,
+                "tel": address.tel,
+                "email": address.email
+            }
+
+        context = {
+            'default_address_id': login_user.default_address_id,
+            'addresses': address_dict_list,
+        }
+
+        return render(request, 'user_center_site.html', context)
