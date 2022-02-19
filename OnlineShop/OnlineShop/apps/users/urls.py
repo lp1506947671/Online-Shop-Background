@@ -28,5 +28,7 @@ urlpatterns = [
     # 新增用户地址
     re_path(r'^addresses/create/$', views.CreateAddressView.as_view()),
     # 更新和删除地址
-    re_path(r'^addresses/(?P<address_id>\d+)/', views.UpdateDestroyAddressView.as_view())
+    re_path(r'^addresses/(?P<address_id>\d+)/$', views.UpdateDestroyAddressView.as_view()),
+    # 设置默认地址
+    re_path(r'^addresses/(?P<address_id>\d+)/default/$', views.DefaultAddressView.as_view()),
 ]
