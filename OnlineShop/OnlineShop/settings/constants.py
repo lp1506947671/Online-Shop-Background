@@ -1,2 +1,3 @@
 # access_token有效期，单位秒
 ACCESS_TOKEN_EXPIRES = 600
+USER_ADDRESS_COUNTS_LIMIT = 20

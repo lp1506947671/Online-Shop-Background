@@ -25,4 +25,5 @@ urlpatterns = [
     re_path(r'^emails/verification/$', views.VerifyEmailView.as_view()),
     # 展示用户地址
     re_path(r'^addresses/$', views.AddressView.as_view(), name='address'),
+    re_path(r'^addresses/create/$', views.CreateAddressView.as_view()),
 ]
