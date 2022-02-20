@@ -496,8 +496,6 @@ class ChangePasswordView(LoginRequiredMixin, View):
         context = {
             'username': request.user.username,
             'mobile': request.user.mobile,
-            'email': request.user.email,
-            'email_active': request.user.email_active
         }
         # 接收参数
         old_password = request.POST.get('old_password')
@@ -506,11 +504,14 @@ class ChangePasswordView(LoginRequiredMixin, View):
 
         # 校验参数
         if not all([old_password, new_password, new_password2]):
-            return render(request, 'user_center_pass.html', context.update({'account_errmsg': '缺少必传参数'}))
+            context['account_errmsg'] = '缺少必传参数'
+            return render(request, 'user_center_pass.html', context)
         if not re.match(r'^[0-9A-Za-z]{8,20}$', new_password):
-            return render(request, 'user_center_pass.html', context.update({'account_errmsg': '密码最少8位，最长20位'}))
+            context['account_errmsg'] = '密码最少8位，最长20位'
+            return render(request, 'user_center_pass.html', context)
         if new_password != new_password2:
-            return http.HttpResponseForbidden('两次输入的密码不一致')
+            context['account_errmsg'] = '两次输入的密码不一致'
+            return render(request, 'user_center_pass.html', context)
 
         pwd_flag = request.user.check_password(old_password)
         if not pwd_flag:
