@@ -4,6 +4,19 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>美多商城-用户中心</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+          integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+
     <link rel="stylesheet" type="text/css" href="{{ static('css/reset.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ static('css/main.css') }}">
     <script type="text/javascript" src="{{ static('js/vue-2.5.16.js') }}"></script>
@@ -62,46 +75,42 @@
             </ul>
         </div>
         <div class="right_content clearfix" v-cloak>
-            <div class="info_con clearfix">
-                <h3 class="common_title2">基本信息</h3>
-                <ul class="user_info_list">
-                    <li><span>用户名：</span>[[ username ]]</li>
-                    <li><span>联系方式：</span>[[ mobile ]]</li>
-                    <li>
-                        <span>Email：</span>
-                        <div v-if="set_email">
-                            <input v-model="email" @blur="check_email" type="email" name="email" class="email">
-                            <input @click="save_email" type="button" name="" value="保 存">
-                            <input @click="cancel_email" type="reset" name="" value="取 消">
-                            <div v-show="error_email" class="error_email_tip">邮箱格式错误</div>
-                        </div>
-                        <div v-else>
-                            <input v-model="email" type="email" name="email" class="email">
-                            <div v-if="email_active">
-                                已验证
-                            </div>
-                            <div v-else>
-                                待验证<input @click="save_email" :disabled="send_email_btn_disabled" type="button"
-                                          :value="send_email_tip">
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <h3 class="common_title2">最近浏览</h3>
-            <div class="has_view_list" v-cloak>
-                <ul class="goods_type_list clearfix">
-                    <li v-for="sku in histories">
-                        <a :href="sku.url"><img :src="sku.default_image_url"></a>
-                        <h4><a :href="sku.url">[[ sku.name ]]</a></h4>
-                        <div class="operate">
-                            <span class="price">￥[[ sku.price ]]</span>
-                            <span class="unit">台</span>
-                            <a href="javascript:;" class="add_goods" title="加入购物车"></a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+
+            <form method="post" class="form-horizontal">
+                {{ csrf_input }}
+                <div class="form-group">
+                    <label for="old_password" class="col-sm-2 control-label">当前密码</label>
+                    <div class="col-sm-3">
+                        <input type="password" name="old_password" class="form-control" id="old_password"
+                               placeholder="请输入当前密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="new_password" class="col-sm-2 control-label">新密码</label>
+                    <div class="col-sm-3">
+                        <input type="password" name="new_password" class="form-control" id="new_password"
+                               placeholder="请输入新密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="new_password2" class="col-sm-2 control-label">确认新密码</label>
+                    <div class="col-sm-3">
+                        <input type="password" name="new_password2" class="form-control" id="new_password2"
+                               placeholder="请再次新密码">
+                    </div>
+                    {% if account_errmsg %}
+                        <div style="color:#e62e2e;">{{ account_errmsg }}</div>
+                    {% endif %}
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <input type="submit" class="btn btn-success " value="确定">
+                        <input type="submit" class="btn btn-danger" value="取消">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="footer">

@@ -476,3 +476,58 @@ class UpdateTitleAddressView(LoginRequiredJSONMixin, View):
 
         # 4.响应删除地址结果
         return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '设置地址标题成功'})
+
+
+class ChangePasswordView(LoginRequiredMixin, View):
+    """修改密码"""
+
+    def get(self, request):
+        """展示修改密码界面"""
+        context = {
+            'username': request.user.username,
+            'mobile': request.user.mobile,
+            'email': request.user.email,
+            'email_active': request.user.email_active
+        }
+        return render(request, 'user_center_pass.html', context)
+
+    def post(self, request):
+        """实现修改密码逻辑"""
+        context = {
+            'username': request.user.username,
+            'mobile': request.user.mobile,
+            'email': request.user.email,
+            'email_active': request.user.email_active
+        }
+        # 接收参数
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        new_password2 = request.POST.get('new_password2')
+
+        # 校验参数
+        if not all([old_password, new_password, new_password2]):
+            return render(request, 'user_center_pass.html', context.update({'account_errmsg': '缺少必传参数'}))
+        if not re.match(r'^[0-9A-Za-z]{8,20}$', new_password):
+            return render(request, 'user_center_pass.html', context.update({'account_errmsg': '密码最少8位，最长20位'}))
+        if new_password != new_password2:
+            return http.HttpResponseForbidden('两次输入的密码不一致')
+
+        pwd_flag = request.user.check_password(old_password)
+        if not pwd_flag:
+            return render(request, 'user_center_pass.html', context.update({'origin_pwd_errmsg': '原始密码错误'}))
+
+        # 修改密码
+        try:
+            request.user.set_password(new_password)
+            request.user.save()
+        except Exception as e:
+            logger.error(e)
+            return render(request, 'user_center_pass.html', {'change_pwd_errmsg': '修改密码失败'})
+
+        # 清理状态保持信息
+        logout(request)
+        response = redirect(reverse('users:login'))
+        response.delete_cookie('username')
+
+        # # 响应密码修改结果：重定向到登录界面
+        return response
