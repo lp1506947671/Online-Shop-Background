@@ -483,20 +483,10 @@ class ChangePasswordView(LoginRequiredMixin, View):
 
     def get(self, request):
         """展示修改密码界面"""
-        context = {
-            'username': request.user.username,
-            'mobile': request.user.mobile,
-            'email': request.user.email,
-            'email_active': request.user.email_active
-        }
-        return render(request, 'user_center_pass.html', context)
+        return render(request, 'user_center_pass.html')
 
     def post(self, request):
         """实现修改密码逻辑"""
-        context = {
-            'username': request.user.username,
-            'mobile': request.user.mobile,
-        }
         # 接收参数
         old_password = request.POST.get('old_password')
         new_password = request.POST.get('new_password')
@@ -504,18 +494,16 @@ class ChangePasswordView(LoginRequiredMixin, View):
 
         # 校验参数
         if not all([old_password, new_password, new_password2]):
-            context['account_errmsg'] = '缺少必传参数'
-            return render(request, 'user_center_pass.html', context)
+            return http.HttpResponseForbidden('缺少必传参数')
+        try:
+            request.user.check_password(old_password)
+        except Exception as e:
+            logger.error(e)
+            return render(request, 'user_center_pass.html', {'origin_pwd_errmsg': '原始密码错误'})
         if not re.match(r'^[0-9A-Za-z]{8,20}$', new_password):
-            context['account_errmsg'] = '密码最少8位，最长20位'
-            return render(request, 'user_center_pass.html', context)
+            return http.HttpResponseForbidden('密码最少8位，最长20位')
         if new_password != new_password2:
-            context['account_errmsg'] = '两次输入的密码不一致'
-            return render(request, 'user_center_pass.html', context)
-
-        pwd_flag = request.user.check_password(old_password)
-        if not pwd_flag:
-            return render(request, 'user_center_pass.html', context.update({'origin_pwd_errmsg': '原始密码错误'}))
+            return http.HttpResponseForbidden('两次输入的密码不一致')
 
         # 修改密码
         try:
