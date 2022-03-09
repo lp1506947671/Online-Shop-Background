@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View
 
 from contents.models import ContentCategory
-from utils.contents_utils import get_categories
+from OnlineShop.utils.contents_utils import get_categories
 
 
 class IndexView(View):

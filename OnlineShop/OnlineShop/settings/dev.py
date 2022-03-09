@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import sys
 import os
 from pathlib import Path
-from OnlineShop.settings.common import config_email
+from OnlineShop.settings.common import config_email,config_db
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     "users",
     "contents",
     "verifications",
@@ -98,8 +97,12 @@ WSGI_APPLICATION = 'OnlineShop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'OnlineShop.db'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '192.168.157.2',  # 数据库主机
+        'PORT': 3306,  # 数据库端口
+        'USER': 'ossuser',  # 数据库用户名
+        'PASSWORD': config_db.password,  # 数据库用户密码
+        'NAME': 'Online_Shop'  # 数据库名字
     }
 }
 

@@ -42,3 +42,4 @@ class InitConfigFile:
 global_config = InitConfigFile()
 config_qq = MyDict(global_config.QQ)
 config_email = MyDict(global_config.email)
+config_db = MyDict(global_config.db)
