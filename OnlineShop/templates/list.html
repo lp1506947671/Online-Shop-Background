@@ -115,30 +115,28 @@
 	<div class="main_wrap clearfix">
 		<div class="l_wrap fl clearfix">
 			<div class="new_goods">
-				<h3>热销排行</h3>
-				<ul>
-                    <li v-for="sku in hot_skus">
-                        <a :href="sku.url"><img :src="sku.default_image_url"></a>
-                        <h4><a :href="sku.url">[[ sku.name ]]</a></h4>
-                        <div class="price">￥[[ sku.price ]]</div>
-                    </li>
-                </ul>
+{#				<h3>热销排行</h3>#}
+{#				<ul>#}
+{#                    <li v-for="sku in hot_skus">#}
+{#                        <a :href="sku.url"><img :src="sku.default_image_url"></a>#}
+{#                        <h4><a :href="sku.url">[[ sku.name ]]</a></h4>#}
+{#                        <div class="price">￥[[ sku.price ]]</div>#}
+{#                    </li>#}
+{#                </ul>#}
 			</div>
 		</div>
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-                <a href="url('goods:list', args=(category_id, 1))?sort=default" {% if sort=='default' %}class="active"{% endif %}>默认</a>
-                <a href="url('goods:list', args=(category_id, 1))?sort=price" {% if sort=='price' %}class="active"{% endif %}>价格</a>
-                <a href="url('goods:list', args=(category_id, 1))?sort=hot" {% if sort=='hot' %}class="active"{% endif %}>人气</a>
-				<a href="/list/115/1/?sort=default" class="active">默认</a>
-				<a href="/list/115/1/?sort=price">价格</a>
-				<a href="/list/115/1/?sort=hot">人气</a>
+                <a href="{{ url('goods:list', args=(category_id, 1)) }}?sort=default" {% if sort=='default' %}class="active"{% endif %}>默认</a>
+                <a href="{{ url('goods:list', args=(category_id, 1)) }}?sort=price" {% if sort=='price' %}class="active"{% endif %}>价格</a>
+                <a href="{{ url('goods:list', args=(category_id, 1)) }}?sort=hot" {% if sort=='hot' %}class="active"{% endif %}>人气</a>
+
 			</div>
 			<ul class="goods_type_list clearfix">
                 {% for sku in page_skus %}
                     <li>
-                        <a href="{{ url('goods:detail', args=(sku.id, )) }}"><img src="{{ sku.default_image.url }}"></a>
-                        <h4><a href="{{ url('goods:detail', args=(sku.id, )) }}">{{ sku.name }}</a></h4>
+                        <a href=" url('goods:detail', args=(sku.id, ))"><img src="{{ sku.default_image_url }}"></a>
+                        <h4><a href="url('goods:detail', args=(sku.id, ))">{{ sku.name }}</a></h4>
                         <div class="operate">
                             <span class="price">￥{{ sku.price }}</span>
                             <span class="unit">台</span>
