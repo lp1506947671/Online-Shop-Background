@@ -5,8 +5,8 @@ from django.views import View
 # Create your views here.
 from goods import models
 from goods.utils import get_breadcrumb
-from settings import constants
-from utils.contents_utils import get_categories
+from OnlineShop.settings import constants
+from OnlineShop.utils.contents_utils import get_categories
 
 
 class ListView(View):
