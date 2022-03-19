@@ -233,4 +233,4 @@ EMAIL_FROM = f'OnlineShop<{config_email.email_host_user}>'  # 发件人抬头
 # 指定自定义的Django文件存储类
 DEFAULT_FILE_STORAGE = 'OnlineShop.utils.fastdfs.fdfs_storage.FastDFSStorage'
 # FastDFS相关参数
-FDFS_BASE_URL = 'http://192.168.211.133:8888/'
+FDFS_BASE_URL = 'http://192.168.157.2:8888/'

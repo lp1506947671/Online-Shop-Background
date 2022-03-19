@@ -7,6 +7,7 @@ from goods import models
 from goods.utils import get_breadcrumb
 from OnlineShop.settings import constants
 from OnlineShop.utils.contents_utils import get_categories
+from utils.response_code import RETCODE
 
 
 class ListView(View):
@@ -51,13 +52,34 @@ class ListView(View):
 
         # 渲染页面
         context = {
-             'categories': categories,   # 频道分类
-            'breadcrumb': breadcrumb,   # 面包屑导航
-            'sort': sort,               # 排序字段
-            'category': category,       # 第三级分类
-            'page_skus': page_skus,     # 分页后数据
-            'total_page': total_page,   # 总页数
-            'page_num': page_num,       # 当前页码
-            "category_id":category_id
+            'categories': categories,  # 频道分类
+            'breadcrumb': breadcrumb,  # 面包屑导航
+            'sort': sort,  # 排序字段
+            'category': category,  # 第三级分类
+            'page_skus': page_skus,  # 分页后数据
+            'total_page': total_page,  # 总页数
+            'page_num': page_num,  # 当前页码
+            "category_id": category_id
         }
         return render(request, 'list.html', context)
+
+
+class HotGoodsView(View):
+    """商品热销排行"""
+
+    def get(self, request, category_id):
+        """提供商品热销排行JSON数据"""
+        # 根据销量倒序
+        skus = models.SKU.objects.filter(category_id=category_id, is_launched=True).order_by('-sales')[:2]
+
+        # 序列化
+        hot_skus = []
+        for sku in skus:
+            hot_skus.append({
+                'id': sku.id,
+                'default_image_url': sku.default_image.url,
+                'name': sku.name,
+                'price': sku.price
+            })
+
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK', 'hot_skus': hot_skus})
