@@ -1,6 +1,10 @@
+import datetime
+import logging
+
 from django import http
 from django.core.paginator import EmptyPage, Paginator
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import View
 # Create your views here.
 from goods import models
@@ -8,6 +12,8 @@ from goods.utils import get_breadcrumb
 from OnlineShop.settings import constants
 from OnlineShop.utils.contents_utils import get_categories
 from OnlineShop.utils.response_code import RETCODE
+
+logger = logging.getLogger("DEBUG'")
 
 
 class ListView(View):
@@ -145,3 +151,35 @@ class DetailView(View):
             'specs': goods_specs,
         }
         return render(request, 'detail.html', context)
+
+
+class DetailVisitView(View):
+    """详情页分类商品访问量"""
+
+    def post(self, request, category_id):
+        """记录分类商品访问量"""
+        try:
+            category = models.GoodsCategory.objects.get(id=category_id)
+        except models.GoodsCategory.DoesNotExist:
+            return http.HttpResponseForbidden('缺少必传参数')
+
+        # 获取今天的日期
+        t = timezone.localtime()
+        today_str = '%d-%02d-%02d' % (t.year, t.month, t.day)
+        today_date = datetime.datetime.strptime(today_str, '%Y-%m-%d')
+        try:
+            # 查询今天该类别的商品的访问量
+            counts_data = category.goodsvisitcount_set.get(date=today_date)
+        except models.GoodsVisitCount.DoesNotExist:
+            # 如果该类别的商品在今天没有过访问记录，就新建一个访问记录
+            counts_data = models.GoodsVisitCount()
+
+        try:
+            counts_data.category = category
+            counts_data.count += 1
+            counts_data.save()
+        except Exception as e:
+            logger.error(e)
+            return http.HttpResponseServerError('服务器异常')
+
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK'})
