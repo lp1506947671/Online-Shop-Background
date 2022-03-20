@@ -7,7 +7,7 @@ from goods import models
 from goods.utils import get_breadcrumb
 from OnlineShop.settings import constants
 from OnlineShop.utils.contents_utils import get_categories
-from utils.response_code import RETCODE
+from OnlineShop.utils.response_code import RETCODE
 
 
 class ListView(View):

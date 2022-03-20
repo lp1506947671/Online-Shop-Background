@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import sys
 import os
 from pathlib import Path
-from OnlineShop.settings.common import config_email,config_db
+from OnlineShop.settings.common import config_email, config_db
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     "users",
     "contents",
     "verifications",
@@ -234,3 +235,16 @@ EMAIL_FROM = f'OnlineShop<{config_email.email_host_user}>'  # 发件人抬头
 DEFAULT_FILE_STORAGE = 'OnlineShop.utils.fastdfs.fdfs_storage.FastDFSStorage'
 # FastDFS相关参数
 FDFS_BASE_URL = 'http://192.168.157.2:8888/'
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://192.168.157.2:9200/',  # Elasticsearch服务器ip地址，端口号固定为9200
+        'INDEX_NAME': 'online_shop',  # Elasticsearch建立的索引库的名称
+    },
+}
+# 当添加、修改、删除数据时，自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+# 控制每页显示数量
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
