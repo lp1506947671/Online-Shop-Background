@@ -19,7 +19,6 @@ class MyDict(dict):
 
 
 class InitConfigFile:
-
     def __init__(self):
         self.result = self.read_config(CONFIG_PATH)
 
@@ -43,3 +42,4 @@ global_config = InitConfigFile()
 config_qq = MyDict(global_config.QQ)
 config_email = MyDict(global_config.email)
 config_db = MyDict(global_config.db)
+config_redis = MyDict(global_config.redis)
