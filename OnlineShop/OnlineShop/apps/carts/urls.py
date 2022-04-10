@@ -8,4 +8,5 @@ from carts import views
 app_name = "carts"
 urlpatterns = [
     re_path("^carts/$", views.CartsView.as_view(), name="info"),
+    re_path("^carts/selection/$", views.CartsSelectAllView.as_view()),
 ]
