@@ -17,17 +17,18 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    re_path(r'^search/', include('haystack.urls')),
-    re_path(r'^', include('contents.urls', namespace='contents')),
-    re_path(r'^', include('users.urls', namespace='users')),
+    path("admin/", admin.site.urls),
+    re_path(r"^search/", include("haystack.urls")),
+    re_path(r"^", include("contents.urls", namespace="contents")),
+    re_path(r"^", include("users.urls", namespace="users")),
     # verifications
-    re_path(r'^', include('verifications.urls')),
+    re_path(r"^", include("verifications.urls")),
     # oauth
-    re_path(r'^', include('oauth.urls', namespace="oauth")),
+    re_path(r"^", include("oauth.urls", namespace="oauth")),
     # areas
-    re_path(r'^', include('areas.urls', namespace="areas")),
+    re_path(r"^", include("areas.urls", namespace="areas")),
     # goods
-    re_path(r'^', include('goods.urls', namespace="goods")),
-
+    re_path(r"^", include("goods.urls", namespace="goods")),
+    # carts
+    re_path(r"^", include("carts.urls", namespace="carts")),
 ]
