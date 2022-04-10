@@ -74,7 +74,7 @@ class CartsView(View):
             # 将redis中的数据构造成跟cookie中的格式一致，方便统一查询
             cart_dict = {}
             for sku_id, count in redis_cart.items():
-                cart_dict[int(sku_id)] = {
+                cart_dict[str(int(sku_id))] = {
                     "count": int(count),
                     "selected": sku_id in cart_selected,
                 }
@@ -93,17 +93,18 @@ class CartsView(View):
         skus = models.SKU.objects.filter(id__in=sku_ids)
         cart_skus = []
         for sku in skus:
+            sku_id_str = str(sku.id)
             cart_skus.append(
                 {
                     "id": sku.id,
                     "name": sku.name,
-                    "count": cart_dict.get(sku.id).get("count"),
+                    "count": cart_dict.get(sku_id_str).get("count"),
                     "selected": str(
-                        cart_dict.get(sku.id).get("selected")
+                        cart_dict.get(sku_id_str).get("selected")
                     ),  # 将True，转'True'，方便json解析
                     "default_image_url": sku.default_image.url,
                     "price": str(sku.price),  # 从Decimal('10.2')中取出'10.2'，方便json解析
-                    "amount": str(sku.price * cart_dict.get(sku.id).get("count")),
+                    "amount": str(sku.price * cart_dict.get(sku_id_str).get("count")),
                 }
             )
 

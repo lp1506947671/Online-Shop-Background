@@ -19,6 +19,7 @@ from OnlineShop.utils.common import (
     check_verify_email_token,
 )
 from OnlineShop.utils.response_code import RETCODE
+from carts.utils import merge_cart_cookie_to_redis
 from celery_tasks.email.tasks import send_verify_email
 from goods import models
 from users.models import User, Address
@@ -218,7 +219,9 @@ class LoginView(View):
         else:
             # 重定向到首页
             response = redirect(reverse("contents:index"))
-
+        response = merge_cart_cookie_to_redis(
+            request=request, user=user, response=response
+        )
         response.set_cookie("username", user.username, max_age=3600 * 24 * 15)
         return response
 
