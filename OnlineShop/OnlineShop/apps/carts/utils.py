@@ -1,6 +1,7 @@
+from django.conf.global_settings import SECRET_KEY
 from itsdangerous import base64_decode, Serializer
 from django_redis import get_redis_connection
-from settings.dev import SECRET_KEY
+
 
 s = Serializer(SECRET_KEY)
 
