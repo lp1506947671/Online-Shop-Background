@@ -5,9 +5,9 @@ from django.views import View
 from django.shortcuts import render
 from django_redis import get_redis_connection
 from goods import models
-from settings import constants
-from settings.dev import SECRET_KEY
-from utils.response_code import RETCODE
+from OnlineShop.settings import constants
+from OnlineShop.settings.dev import SECRET_KEY
+from OnlineShop.utils.response_code import RETCODE
 
 # Create your views here.
 
