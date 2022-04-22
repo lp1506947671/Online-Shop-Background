@@ -13,4 +13,6 @@ urlpatterns = [
     ),
     # 保存订单
     re_path(r"^orders/commit/$", views.OrderCommitView.as_view(), name="commit"),
+    # 提交订单成功
+    re_path(r"^orders/success/$", views.OrderSuccessView.as_view()),
 ]
