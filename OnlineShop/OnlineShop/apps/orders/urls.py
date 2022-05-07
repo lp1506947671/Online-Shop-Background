@@ -15,4 +15,10 @@ urlpatterns = [
     re_path(r"^orders/commit/$", views.OrderCommitView.as_view(), name="commit"),
     # 提交订单成功
     re_path(r"^orders/success/$", views.OrderSuccessView.as_view()),
+    # 我的订单
+    re_path(
+        r"^orders/info/(?P<page_num>\d+)/$",
+        views.UserOrderInfoView.as_view(),
+        name="info",
+    ),
 ]
