@@ -3,7 +3,9 @@
 
 from django.urls import re_path
 
-from orders import views
+from payment import views
 
 app_name = "payment"
-urlpatterns = []
+urlpatterns = [
+    re_path(r"^payment/(?P<order_id>\d+)/$", views.PaymentView.as_view()),
+]
