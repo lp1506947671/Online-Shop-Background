@@ -1,0 +1,11 @@
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (1, '手机数码');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (2, '电脑家电');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (3, '家居家装');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (4, '男女童装');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (5, '女鞋箱包');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (6, '手机数码');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (7, '运动户外');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (8, '房产汽车');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (9, '食品生鲜');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (10, '图书音像');
+INSERT INTO `tb_channel_group`(`id`, `name`) VALUES (11, '旅游生活');

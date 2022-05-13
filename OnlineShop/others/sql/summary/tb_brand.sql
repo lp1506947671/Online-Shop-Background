@@ -1,0 +1,2 @@
+INSERT INTO `tb_brand`(`id`, `create_time`, `update_time`, `name`, `logo`, `first_letter`) VALUES (1, '2018-04-11 15:58:07.692997', '2018-04-11 15:58:07.693099', 'Apple', 'group1/M00/00/02/CtM3BVrOMI-AVPWrAAAPN5YrVxw2187795', 'A');
+INSERT INTO `tb_brand`(`id`, `create_time`, `update_time`, `name`, `logo`, `first_letter`) VALUES (2, '2018-04-14 03:01:13.193045', '2018-04-14 03:01:13.193091', '华为（HUAWEI）', 'group1/M00/00/02/CtM3BVrRbvmAJ0cWAAAefuA2Xqo3496149', 'H');
