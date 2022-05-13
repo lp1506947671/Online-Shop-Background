@@ -1,0 +1,17 @@
+1.新建数据库,指定字符集utf8,utf8_general_ci
+
+2.运行tb_areas.sql文件
+
+3.运行tb_content_category.sql文件
+
+4.运行tb_content.sql文件
+
+5.运行tb_goods_category.sql文件
+
+6.运行tb_goods_channel.sql文件
+
+7.运行tb_brand.sql文件
+
+8.运行tb_spu.sql文件
+
+9.运行tb_spu_specification.sql文件
