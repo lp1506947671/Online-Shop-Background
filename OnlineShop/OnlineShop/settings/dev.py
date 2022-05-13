@@ -106,7 +106,7 @@ DATABASES = {
         "PORT": 3306,  # 数据库端口
         "USER": "ossuser",  # 数据库用户名
         "PASSWORD": config_db.password,  # 数据库用户密码
-        "NAME": "Online_Shop",  # 数据库名字
+        "NAME": "Online_Shop_2",  # 数据库名字
     }
 }
 
@@ -268,3 +268,4 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 # 控制每页显示数量
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
+MIGRATION_MODULES = {"payment": "payment.migrations"}

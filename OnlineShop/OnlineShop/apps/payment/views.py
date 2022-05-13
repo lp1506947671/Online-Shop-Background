@@ -9,9 +9,9 @@ from django.shortcuts import render
 from django.views import View
 
 from orders.models import OrderInfo
-from settings.common import config_alipay
-from utils.common import LoginRequiredJSONMixin
-from utils.response_code import RETCODE
+from OnlineShop.settings.common import config_alipay
+from OnlineShop.utils.common import LoginRequiredJSONMixin
+from OnlineShop.utils.response_code import RETCODE
 
 
 class PaymentView(LoginRequiredJSONMixin, View):

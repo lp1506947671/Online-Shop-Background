@@ -14,11 +14,11 @@ from django.views import View
 from django_redis import get_redis_connection
 
 from goods.models import SKU
-from orders.models import OrderInfo, OrderGoods
-from settings import constants
 from users.models import Address
-from utils.common import LoginRequiredJSONMixin
-from utils.response_code import RETCODE
+from orders.models import OrderInfo, OrderGoods
+from OnlineShop.settings import constants
+from OnlineShop.utils.common import LoginRequiredJSONMixin
+from OnlineShop.utils.response_code import RETCODE
 
 logger = logging.getLogger("django")
 
