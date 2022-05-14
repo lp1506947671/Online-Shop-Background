@@ -268,4 +268,3 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 # 控制每页显示数量
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
-MIGRATION_MODULES = {"payment": "payment.migrations"}
