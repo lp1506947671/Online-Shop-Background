@@ -12,6 +12,7 @@ from orders.models import OrderInfo
 from OnlineShop.settings.common import config_alipay
 from OnlineShop.utils.common import LoginRequiredJSONMixin
 from OnlineShop.utils.response_code import RETCODE
+from payment.models import Payment
 
 
 class PaymentView(LoginRequiredJSONMixin, View):
@@ -58,3 +59,49 @@ class PaymentView(LoginRequiredJSONMixin, View):
         return http.JsonResponse(
             {"code": RETCODE.OK, "errmsg": "OK", "alipay_url": alipay_url}
         )
+
+
+class PaymentStatusView(View):
+    """保存订单支付结果"""
+
+    def get(self, request):
+        # 获取前端传入的请求参数
+        query_dict = request.GET
+        data = query_dict.dict()
+        # 获取并从请求参数中剔除signature
+        signature = data.pop("sign")
+
+        # 创建支付宝支付对象
+        alipay = AliPay(
+            appid=config_alipay.alipay_appid,
+            app_notify_url=None,
+            app_private_key_path=os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "keys/app_private_key.pem"
+            ),
+            alipay_public_key_path=os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "keys/alipay_public_key.pem"
+            ),
+            sign_type="RSA2",
+            debug=config_alipay.alipay_debug,
+        )
+        # 校验这个重定向是否是alipay重定向过来的
+        success = alipay.verify(data, signature)
+        if success:
+            # 读取order_id
+            order_id = data.get("out_trade_no")
+            # 读取支付宝流水号
+            trade_id = data.get("trade_no")
+            # 保存Payment模型类数据
+            Payment.objects.create(order_id=order_id, trade_id=trade_id)
+
+            # 修改订单状态为待评价
+            OrderInfo.objects.filter(
+                order_id=order_id, status=OrderInfo.ORDER_STATUS_ENUM["UNPAID"]
+            ).update(status=OrderInfo.ORDER_STATUS_ENUM["UNCOMMENT"])
+
+            # 响应trade_id
+            context = {"trade_id": trade_id}
+            return render(request, "pay_success.html", context)
+        else:
+            # 订单支付失败，重定向到我的订单
+            return http.HttpResponseForbidden("非法请求")
