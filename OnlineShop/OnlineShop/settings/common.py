@@ -39,8 +39,11 @@ class InitConfigFile:
 
 
 global_config = InitConfigFile()
-config_qq = MyDict(global_config.QQ)
-config_email = MyDict(global_config.email)
 config_db = MyDict(global_config.db)
 config_redis = MyDict(global_config.redis)
+config_fdfs = MyDict(global_config.fdfs)
+config_haystack = MyDict(global_config.haystack)
+config_verifications = MyDict(global_config.verifications)
+config_qq = MyDict(global_config.qq)
+config_email = MyDict(global_config.email)
 config_alipay = MyDict(global_config.alipay)

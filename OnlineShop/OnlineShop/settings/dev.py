@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import sys
 import os
 from pathlib import Path
-from OnlineShop.settings.common import config_email, config_db, config_redis
+from . import common
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -102,11 +102,11 @@ WSGI_APPLICATION = "OnlineShop.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "HOST": "192.168.190.2",  # 数据库主机
-        "PORT": 3306,  # 数据库端口
-        "USER": "ossuser",  # 数据库用户名
-        "PASSWORD": config_db.password,  # 数据库用户密码
-        "NAME": "Online_Shop_2",  # 数据库名字
+        "HOST": common.config_db.host,  # 数据库主机
+        "PORT": common.config_db.port,  # 数据库端口
+        "USER": common.config_db.user,  # 数据库用户名
+        "PASSWORD": common.config_db.password,  # 数据库用户密码
+        "NAME": common.config_db.name,  # 数据库名字
     }
 }
 
@@ -160,39 +160,39 @@ CACHES = {
         "LOCATION": "redis://192.168.190.2:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": config_redis.password,
+            "PASSWORD": common.config_redis.password,
         },
     },
     "session": {  # session
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.190.2:6379/1",
+        "LOCATION": f"redis://{common.config_redis.host}/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": config_redis.password,
+            "PASSWORD": common.config_redis.password,
         },
     },
     "verify_code": {  # 验证码
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.190.2:6379/2",
+        "LOCATION": f"redis://{common.config_redis.host}/2",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": config_redis.password,
+            "PASSWORD": common.config_redis.password,
         },
     },
     "carts": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.190.2:6379/4",
+        "LOCATION": f"redis://{common.config_redis.host}/4",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": config_redis.password,
+            "PASSWORD": common.config_redis.password,
         },
     },
     "history": {  # 用户浏览记录
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.190.2:6379/3",
+        "LOCATION": f"redis://{common.config_redis.password}/3",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": config_redis.password,
+            "PASSWORD": common.config_redis.password,
         },
     },
 }
@@ -244,27 +244,27 @@ LOGIN_URL = "/login/"
 
 # 指定邮件后端
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.163.com"  # 发邮件主机
-EMAIL_PORT = 25  # 发邮件端口
+EMAIL_HOST = common.config_email.host  # 发邮件主机
+EMAIL_PORT = common.config_email.port  # 发邮件端口
 # 授权的邮箱
-EMAIL_HOST_USER = config_email.email_host_user
+EMAIL_HOST_USER = common.config_email.email_host_user
 # 邮箱授权时获得的密码，非注册登录密码
-EMAIL_HOST_PASSWORD = config_email.email_host_password
-EMAIL_FROM = f"OnlineShop<{config_email.email_host_user}>"  # 发件人抬头
+EMAIL_HOST_PASSWORD = common.config_email.email_host_password
+EMAIL_FROM = f"OnlineShop<{common.config_email.email_host_user}>"  # 发件人抬头
 # 指定自定义的Django文件存储类
 DEFAULT_FILE_STORAGE = "OnlineShop.utils.fastdfs.fdfs_storage.FastDFSStorage"
 # FastDFS相关参数
-FDFS_BASE_URL = "http://192.168.190.2:8888/"
+FDFS_BASE_URL = common.config_fdfs.url
 
 # Haystack
 HAYSTACK_CONNECTIONS = {
     "default": {
         "ENGINE": "haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine",
-        "URL": "http://192.168.190.2:9200/",  # Elasticsearch服务器ip地址，端口号固定为9200
+        "URL": f"{common.config_haystack.url}",  # Elasticsearch服务器ip地址，端口号固定为9200
         "INDEX_NAME": "online_shop",  # Elasticsearch建立的索引库的名称
     },
 }
-# 当添加、修改、删除数据时，自动生成索引
-HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
-# 控制每页显示数量
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
+HAYSTACK_SIGNAL_PROCESSOR = (
+    "haystack.signals.RealtimeSignalProcessor"  # 当添加、修改、删除数据时，自动生成索引
+)
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5  # 控制每页显示数量
