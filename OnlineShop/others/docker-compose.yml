@@ -1,0 +1,46 @@
+version: "3"
+services:
+  mariadb-master:
+    image: mariadb:10.1.48
+    container_name: mariadb-master
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Changeme_123!
+    volumes:
+      - ./master/data:/var/lib/mysql:cached
+      - ./master.cnf:/etc/mysql/my.cnf:cached
+    security_opt:
+      - seccomp:unconfined
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+    networks:
+      - dev_network
+
+  mariadb-slave:
+    image: mariadb:10.1.48
+    container_name: mariadb-slave
+    restart: always
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Changeme_123!
+    volumes:
+      - ./slave/data:/var/lib/mysql:cached
+      - ./slave.cnf:/etc/mysql/my.cnf:cached
+    security_opt:
+      - seccomp:unconfined
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    external:
+      name: dev_network
