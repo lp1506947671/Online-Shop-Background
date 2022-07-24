@@ -1,0 +1,80 @@
+celery==5.2.3
+  - billiard [required: >=3.6.4.0,<4.0, installed: 3.6.4.0]
+  - click [required: >=8.0.3,<9.0, installed: 8.1.1]
+  - click-didyoumean [required: >=0.0.3, installed: 0.3.0]
+    - click [required: >=7, installed: 8.1.1]
+  - click-plugins [required: >=1.1.1, installed: 1.1.1]
+    - click [required: >=4.0, installed: 8.1.1]
+  - click-repl [required: >=0.2.0, installed: 0.2.0]
+    - click [required: Any, installed: 8.1.1]
+    - prompt-toolkit [required: Any, installed: 3.0.28]
+      - wcwidth [required: Any, installed: 0.2.5]
+    - six [required: Any, installed: 1.16.0]
+  - kombu [required: >=5.2.3,<6.0, installed: 5.2.4]
+    - amqp [required: >=5.0.9,<6.0.0, installed: 5.1.0]
+      - vine [required: >=5.0.0, installed: 5.0.0]
+    - vine [required: Any, installed: 5.0.0]
+  - pytz [required: >=2021.3, installed: 2022.1]
+  - setuptools [required: >=59.1.1,<59.7.0, installed: 59.6.0]
+  - vine [required: >=5.0.0,<6.0, installed: 5.0.0]
+colorama==0.4.4
+django-crontab==0.7.1
+  - Django [required: >=1.8, installed: 3.2.12]
+    - asgiref [required: >=3.3.2,<4, installed: 3.5.0]
+    - pytz [required: Any, installed: 2022.1]
+    - sqlparse [required: >=0.2.2, installed: 0.4.2]
+django-haystack==3.1.1
+  - Django [required: >=2.2, installed: 3.2.12]
+    - asgiref [required: >=3.3.2,<4, installed: 3.5.0]
+    - pytz [required: Any, installed: 2022.1]
+    - sqlparse [required: >=0.2.2, installed: 0.4.2]
+django-redis==5.2.0
+  - Django [required: >=2.2, installed: 3.2.12]
+    - asgiref [required: >=3.3.2,<4, installed: 3.5.0]
+    - pytz [required: Any, installed: 2022.1]
+    - sqlparse [required: >=0.2.2, installed: 0.4.2]
+  - redis [required: >=3,!=4.0.1,!=4.0.0, installed: 4.2.0]
+    - async-timeout [required: >=4.0.2, installed: 4.0.2]
+    - deprecated [required: >=1.2.3, installed: 1.2.13]
+      - wrapt [required: >=1.10,<2, installed: 1.14.0]
+    - packaging [required: >=20.4, installed: 21.3]
+      - pyparsing [required: >=2.0.2,!=3.0.5, installed: 3.0.7]
+    - typing-extensions [required: Any, installed: 4.1.1]
+elasticsearch==2.4.1
+  - urllib3 [required: >=1.8,<2.0, installed: 1.26.9]
+eventlet==0.30.2
+  - dnspython [required: >=1.15.0,<2.0.0, installed: 1.16.0]
+  - greenlet [required: >=0.3, installed: 1.1.2]
+  - six [required: >=1.10.0, installed: 1.16.0]
+fdfs-client-py==1.2.6
+gunicorn==20.1.0
+  - setuptools [required: >=3.0, installed: 59.6.0]
+itsdangerous==2.0.1
+Jinja2==3.1.1
+  - MarkupSafe [required: >=2.0, installed: 2.1.1]
+mutagen==1.45.1
+pika==1.2.0
+Pillow==9.0.1
+pipdeptree==2.2.1
+  - pip [required: >=6.0.0, installed: 22.1.2]
+pre-commit==2.18.1
+  - cfgv [required: >=2.0.0, installed: 3.3.1]
+  - identify [required: >=1.0.0, installed: 2.4.12]
+  - nodeenv [required: >=0.11.1, installed: 1.6.0]
+  - pyyaml [required: >=5.1, installed: 6.0]
+  - toml [required: Any, installed: 0.10.2]
+  - virtualenv [required: >=20.0.8, installed: 20.14.0]
+    - distlib [required: >=0.3.1,<1, installed: 0.3.4]
+    - filelock [required: >=3.2,<4, installed: 3.6.0]
+    - platformdirs [required: >=2,<3, installed: 2.5.1]
+    - six [required: >=1.9.0,<2, installed: 1.16.0]
+PyMySQL==1.0.2
+python-alipay-sdk==1.8.0
+  - pycryptodomex [required: Any, installed: 3.14.1]
+QQLoginTool==0.3.0
+  - requests [required: Any, installed: 2.27.1]
+    - certifi [required: >=2017.4.17, installed: 2021.10.8]
+    - charset-normalizer [required: ~=2.0.0, installed: 2.0.12]
+    - idna [required: >=2.5,<4, installed: 3.3]
+    - urllib3 [required: >=1.21.1,<1.27, installed: 1.26.9]
+uWSGI==2.0.20
