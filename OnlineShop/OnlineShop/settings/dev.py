@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "carts",
     "orders",
     "payment",
+    "meiduo_admin",
 ]
 
 MIDDLEWARE = [
