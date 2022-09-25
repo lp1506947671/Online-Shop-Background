@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from rest_framework.response import Response
 
 from rest_framework.views import APIView
@@ -44,3 +44,27 @@ class UserOrderCountView(APIView):
             .count()
         )
         return Response({"count": count, "date": now_date})
+
+
+class UserMonthCountView(APIView):
+    def get(self, request):
+        # 获取当前日期
+        now_date = date.today()
+        # 获取一个月前日期
+        start_date = now_date - timedelta(29)
+        # 创建空列表保存每天的用户量
+        date_list = []
+
+        for i in range(30):
+            # 循环遍历获取当天日期
+            index_date = start_date + timedelta(days=i)
+            # 指定下一天日期
+            cur_date = start_date + timedelta(days=i + 1)
+            # 查询条件是大于当前日期index_date，小于明天日期的用户cur_date，得到当天用户量
+            count = User.objects.filter(
+                date_joined__gte=index_date, date_joined__lt=cur_date
+            ).count()
+
+            date_list.append({"count": count, "date": index_date})
+
+            return Response(date_list)
