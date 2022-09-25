@@ -10,6 +10,10 @@ app_name = "meiduo_admin"
 urlpatterns = [
     # 登录
     re_path(r"authorizations", obtain_jwt_token),
+    # 用户总数统计
     re_path(r"statistical/total_count", views.UserTotalCountView.as_view()),
+    # 日增用户统计
     re_path(r"statistical/day_increment", views.UserDayCountView.as_view()),
+    # 日活跃用户统计
+    re_path(r"statistical/day_active", views.UserDayCountView.as_view()),
 ]
