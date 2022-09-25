@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # Create your views here.
+from goods.models import GoodsVisitCount
+from goods.serializer import GoodsSerializer
 from orders.models import OrderInfo
 from users.models import User
 
@@ -68,3 +70,15 @@ class UserMonthCountView(APIView):
             date_list.append({"count": count, "date": index_date})
 
             return Response(date_list)
+
+
+class GoodsDayView(APIView):
+    def get(self, request):
+        # 获取当天日期
+        now_date = date.today()
+        # 获取当天访问的商品分类数量信息
+        data = GoodsVisitCount.objects.filter(date=now_date)
+        # 序列化返回分类数量
+        ser = GoodsSerializer(data, many=True)
+
+        return Response(ser.data)
