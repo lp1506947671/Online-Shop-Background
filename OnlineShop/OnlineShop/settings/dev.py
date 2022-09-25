@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import datetime
 import sys
 import os
 from pathlib import Path
@@ -247,7 +248,7 @@ LOGGING = {
     },
 }
 AUTH_USER_MODEL = "users.User"
-AUTHENTICATION_BACKENDS = ["users.utils.UsernameMobileAuthBackend"]
+AUTHENTICATION_BACKENDS = ["OnlineShop.utils.authenticate.UsernameMobileAuthBackend"]
 LOGIN_URL = "/login/"
 
 # 指定邮件后端
@@ -276,3 +277,15 @@ HAYSTACK_SIGNAL_PROCESSOR = (
     "haystack.signals.RealtimeSignalProcessor"  # 当添加、修改、删除数据时，自动生成索引
 )
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5  # 控制每页显示数量
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASS": (
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    )
+}
+JWT_AUTH = {
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(days=1),
+    "JWT_RESPONSE_PAYLOAD_HANDLER": "meiduo_admin.utils.jwt_response.jwt_response_payload_handler",
+}

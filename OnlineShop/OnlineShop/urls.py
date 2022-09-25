@@ -36,5 +36,5 @@ urlpatterns = [
     # payment
     re_path(r"^", include("payment.urls", namespace="payment")),
     # meiduo_admin
-    re_path(r"^", include("meiduo_admin.urls", namespace="payment")),
+    re_path(r"^", include("meiduo_admin.urls", namespace="meiduo_admin")),
 ]
