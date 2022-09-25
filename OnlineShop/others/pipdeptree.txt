@@ -1,12 +1,16 @@
 celery==5.2.3
   - billiard [required: >=3.6.4.0,<4.0, installed: 3.6.4.0]
   - click [required: >=8.0.3,<9.0, installed: 8.1.1]
+    - colorama [required: Any, installed: 0.4.4]
   - click-didyoumean [required: >=0.0.3, installed: 0.3.0]
     - click [required: >=7, installed: 8.1.1]
+      - colorama [required: Any, installed: 0.4.4]
   - click-plugins [required: >=1.1.1, installed: 1.1.1]
     - click [required: >=4.0, installed: 8.1.1]
+      - colorama [required: Any, installed: 0.4.4]
   - click-repl [required: >=0.2.0, installed: 0.2.0]
     - click [required: Any, installed: 8.1.1]
+      - colorama [required: Any, installed: 0.4.4]
     - prompt-toolkit [required: Any, installed: 3.0.28]
       - wcwidth [required: Any, installed: 0.2.5]
     - six [required: Any, installed: 1.16.0]
@@ -17,7 +21,14 @@ celery==5.2.3
   - pytz [required: >=2021.3, installed: 2022.1]
   - setuptools [required: >=59.1.1,<59.7.0, installed: 59.6.0]
   - vine [required: >=5.0.0,<6.0, installed: 5.0.0]
-colorama==0.4.4
+cryptography==38.0.1
+  - cffi [required: >=1.12, installed: 1.15.1]
+    - pycparser [required: Any, installed: 2.21]
+django-cors-headers==3.13.0
+  - Django [required: >=3.2, installed: 3.2.12]
+    - asgiref [required: >=3.3.2,<4, installed: 3.5.0]
+    - pytz [required: Any, installed: 2022.1]
+    - sqlparse [required: >=0.2.2, installed: 0.4.2]
 django-crontab==0.7.1
   - Django [required: >=1.8, installed: 3.2.12]
     - asgiref [required: >=3.3.2,<4, installed: 3.5.0]
@@ -40,12 +51,16 @@ django-redis==5.2.0
     - packaging [required: >=20.4, installed: 21.3]
       - pyparsing [required: >=2.0.2,!=3.0.5, installed: 3.0.7]
     - typing-extensions [required: Any, installed: 4.1.1]
+djangorestframework==3.13.1
+  - django [required: >=2.2, installed: 3.2.12]
+    - asgiref [required: >=3.3.2,<4, installed: 3.5.0]
+    - pytz [required: Any, installed: 2022.1]
+    - sqlparse [required: >=0.2.2, installed: 0.4.2]
+  - pytz [required: Any, installed: 2022.1]
+djangorestframework-jwt==1.11.0
+  - PyJWT [required: >=1.5.2,<2.0.0, installed: 1.7.1]
 elasticsearch==2.4.1
   - urllib3 [required: >=1.8,<2.0, installed: 1.26.9]
-eventlet==0.30.2
-  - dnspython [required: >=1.15.0,<2.0.0, installed: 1.16.0]
-  - greenlet [required: >=0.3, installed: 1.1.2]
-  - six [required: >=1.10.0, installed: 1.16.0]
 fdfs-client-py==1.2.6
 gunicorn==20.1.0
   - setuptools [required: >=3.0, installed: 59.6.0]
@@ -56,7 +71,7 @@ mutagen==1.45.1
 pika==1.2.0
 Pillow==9.0.1
 pipdeptree==2.2.1
-  - pip [required: >=6.0.0, installed: 22.1.2]
+  - pip [required: >=6.0.0, installed: 21.3.1]
 pre-commit==2.18.1
   - cfgv [required: >=2.0.0, installed: 3.3.1]
   - identify [required: >=1.0.0, installed: 2.4.12]
@@ -68,7 +83,19 @@ pre-commit==2.18.1
     - filelock [required: >=3.2,<4, installed: 3.6.0]
     - platformdirs [required: >=2,<3, installed: 2.5.1]
     - six [required: >=1.9.0,<2, installed: 1.16.0]
+pycryptodome==3.15.0
+pymongo==4.1.1
 PyMySQL==1.0.2
+pyppeteer==1.0.2
+  - appdirs [required: >=1.4.3,<2.0.0, installed: 1.4.4]
+  - certifi [required: >=2021, installed: 2021.10.8]
+  - importlib-metadata [required: >=1.4, installed: 4.12.0]
+    - zipp [required: >=0.5, installed: 3.8.1]
+  - pyee [required: >=8.1.0,<9.0.0, installed: 8.2.2]
+  - tqdm [required: >=4.42.1,<5.0.0, installed: 4.64.0]
+    - colorama [required: Any, installed: 0.4.4]
+  - urllib3 [required: >=1.25.8,<2.0.0, installed: 1.26.9]
+  - websockets [required: >=10.0,<11.0, installed: 10.3]
 python-alipay-sdk==1.8.0
   - pycryptodomex [required: Any, installed: 3.14.1]
 QQLoginTool==0.3.0
@@ -77,4 +104,4 @@ QQLoginTool==0.3.0
     - charset-normalizer [required: ~=2.0.0, installed: 2.0.12]
     - idna [required: >=2.5,<4, installed: 3.3]
     - urllib3 [required: >=1.21.1,<1.27, installed: 1.26.9]
-uWSGI==2.0.20
+wheel==0.37.1
